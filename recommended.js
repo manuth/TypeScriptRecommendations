@@ -1,0 +1,1 @@
+exports = require("./tsconfig.recommended.json");
