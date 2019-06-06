@@ -1,0 +1,24 @@
+{
+  "name": "@manuth/tsconfig",
+  "version": "1.0.0",
+  "description": "Provides recommended settings for TypeScript",
+  "author": "Manuel Thalmann <m@nuth.ch>",
+  "license": "MIT",
+  "keywords": [
+    "TypeScript",
+    "configuration",
+    "recommendations",
+    "tsc",
+    "tsconfig"
+  ],
+  "main": "tsconfig.json",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuth/TypeScriptRecommendations.git"
+  },
+  "bugs": {
+    "url": "https://github.com/manuth/TypeScriptRecommendations/issues"
+  },
+  "homepage": "https://github.com/manuth/TypeScriptRecommendations#readme"
+}
