@@ -11,8 +11,6 @@
     "tsc",
     "tsconfig"
   ],
-  "main": "tsconfig.json",
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manuth/TypeScriptRecommendations.git"
@@ -20,5 +18,24 @@
   "bugs": {
     "url": "https://github.com/manuth/TypeScriptRecommendations/issues"
   },
-  "homepage": "https://github.com/manuth/TypeScriptRecommendations#readme"
+  "homepage": "https://github.com/manuth/TypeScriptRecommendations#readme",
+  "scripts": {
+    "build": "tsc -p .",
+    "rebuild": "npm run clean && npm run build",
+    "watch": "tsc -p . --watch",
+    "clean": "rimraf ./lib",
+    "lint": "tslint -p ./ -t verbose",
+    "test": "mocha",
+    "prepare": "npm run rebuild"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.0.7",
+    "mocha": "^6.1.4",
+    "rimraf": "^2.6.3",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1",
+    "typescript-tslint-plugin": "^0.4.0"
+  }
 }
