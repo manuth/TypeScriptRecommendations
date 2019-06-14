@@ -58,8 +58,8 @@ suite(
             "Testing whether valid code is able to compile…",
             async function ()
             {
-                this.timeout(30 * 1000);
-                this.slow(15 * 1000);
+                this.timeout(50 * 1000);
+                this.slow(25 * 1000);
                 await configurationTests.TestValidCode();
             });
 
@@ -67,8 +67,8 @@ suite(
             "Testing whether invalid code causes errors…",
             async function ()
             {
-                this.timeout(30 * 1000);
-                this.slow(15 * 1000);
+                this.timeout(50 * 1000);
+                this.slow(25 * 1000);
                 await configurationTests.TestInvalidCode();
             });
 
