@@ -1,8 +1,8 @@
 import Assert = require("assert");
+import { spawnSync } from "child_process";
 import FileSystem = require("fs-extra");
 import npmWhich = require("npm-which");
 import { TempDirectory } from "temp-filesystem";
-import { spawnSync } from "child_process";
 
 /**
  * Provides tests for a typescript-configuration
