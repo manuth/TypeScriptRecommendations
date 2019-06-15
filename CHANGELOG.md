@@ -9,14 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Improve the stability of the code
   - Add a brief explanation to the readme-file
 
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.0.1...v1.1.0)
+
 ## TypeScriptRecommendations v1.0.1
   - Remove malworking JavaScript-code
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.0.0...v1.0.1)
 
 ## TypeScriptRecommendations v1.0.0
   - Initial release
 
-[Show differences][v1.0.0]
-
-<!--- References -->
-[v1.0.0]: https://github.com/manuth/TypeScriptRecommendations/compare/11dd1bc689a4cb3c9f62168695a16934b489ffcb...v1.0.0
-[v1.0.1]: https://github.com/manuth/TypeScriptRecommendations/compare/v1.0.0...v1.0.1
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/11dd1bc689a4cb3c9f62168695a16934b489ffcb...v1.0.0)
