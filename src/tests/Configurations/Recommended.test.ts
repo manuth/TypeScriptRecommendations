@@ -56,7 +56,7 @@ suite(
 
         test(
             "Testing whether valid code is able to compile…",
-            async function ()
+            async function()
             {
                 this.timeout(50 * 1000);
                 this.slow(25 * 1000);
@@ -65,7 +65,7 @@ suite(
 
         test(
             "Testing whether invalid code causes errors…",
-            async function ()
+            async function()
             {
                 this.timeout(50 * 1000);
                 this.slow(25 * 1000);
