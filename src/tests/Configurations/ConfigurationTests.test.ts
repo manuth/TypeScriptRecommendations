@@ -3,92 +3,152 @@ import { spawnSync } from "child_process";
 import FileSystem = require("fs-extra");
 import npmWhich = require("npm-which");
 import { TempDirectory } from "temp-filesystem";
+import { IRuleTest } from "./IRuleTest.test";
 
 /**
- * Provides tests for a typescript-configuration
+ * Provides tests for a typescript-configuration.
  */
-export abstract class ConfigurationTests
+export class ConfigurationTests
 {
     /**
-     * Gets or sets the temporary directory.
+     * Gets or sets tests for tsconfig-settings.
      */
-    protected readonly TempDir: TempDirectory;
+    public RuleTests: IRuleTest[] = [];
+
+    /**
+     * Gets or sets the temporary directory for the tests.
+     */
+    protected TempDir: TempDirectory;
 
     /**
      * Gets the path to the configuration to test.
      */
-    protected ConfigurationPath: string;
-
-    /**
-     * Gets or sets valid code-snippets.
-     */
-    protected ValidCode: string[] = [];
-
-    /**
-     * Gets or sets invalid code-snippets.
-     */
-    protected InvalidCode: string[] = [];
+    protected readonly ConfigPath: string;
 
     /**
      * Initializes a new instance of the `ConfigurationTests` class.
      *
-     * @param configurationPath
+     * @param configPath
      * The path to the configuration to test.
      */
-    public constructor(tempDir: TempDirectory, configurationPath: string)
+    public constructor(configPath: string)
     {
-        this.TempDir = tempDir;
-        this.ConfigurationPath = configurationPath;
-        FileSystem.writeJSONSync(
-            this.TempDir.MakePath("tsconfig.json"),
+        this.ConfigPath = configPath;
+    }
+
+    /**
+     * Registers the tests.
+     */
+    public Register()
+    {
+        suite(
+            "Checking the integrity of the config…",
+            () =>
             {
-                extends: this.ConfigurationPath
+                suiteSetup(async () => this.Initialize());
+                suiteTeardown(() => this.Dispose());
+                this.RegisterInternal();
             });
     }
 
     /**
-     * Tests the valid code-snipptes.
+     * Registers the tests.
      */
-    public async TestValidCode()
+    protected RegisterInternal()
     {
-        await this.AssertCode(this.ValidCode, false);
-    }
+        let self = this;
 
-    /**
-     * Tests the invalid code-snipptes.
-     */
-    public async TestInvalidCode()
-    {
-        await this.AssertCode(this.InvalidCode, true);
-    }
-
-    /**
-     * Tests code-lines for `tsc`s exit-codes.
-     *
-     * @param codeLines
-     * The code-lines to test.
-     *
-     * @param error
-     * A value indicating whether an error is expected.
-     */
-    protected async AssertCode(codeLines: string[], error: boolean)
-    {
-        for (let codeLine of codeLines)
+        for (let ruleTest of this.RuleTests)
         {
-            Assert.strictEqual(await this.TestCode(codeLine) !== 0, error);
+            suite(
+                "Checking the integrity of the `" + ruleTest.RuleName + "`-rule…",
+                () =>
+                {
+                    if (ruleTest.Preprocess)
+                    {
+                        suiteSetup(ruleTest.Preprocess);
+                    }
+
+                    if (ruleTest.ValidCode)
+                    {
+                        test(
+                            "Testing valid code-snippets…",
+                            async function()
+                            {
+                                this.slow(30 * 1000);
+                                this.timeout(60 * 1000);
+                                await self.TestCode(ruleTest.ValidCode, false);
+                            });
+                    }
+
+                    if (ruleTest.InvalidCode)
+                    {
+                        test(
+                            "Testing invalid code-snippets…",
+                            async function()
+                            {
+                                this.slow(30 * 1000);
+                                this.timeout(60 * 1000);
+                                await self.TestCode(ruleTest.InvalidCode, true);
+                            });
+                    }
+
+                    if (ruleTest.Postprocess)
+                    {
+                        suiteTeardown(ruleTest.Postprocess);
+                    }
+                });
         }
     }
 
     /**
-     * Tests a code using `tsc`.
+     * Initializes the tests.
+     */
+    protected async Initialize()
+    {
+        this.TempDir = new TempDirectory();
+        await FileSystem.writeJSON(
+            this.TempDir.MakePath("tsconfig.json"),
+            {
+                extends: this.ConfigPath
+            });
+    }
+
+    /**
+     * Disposes the tests.
+     */
+    protected Dispose()
+    {
+        this.TempDir.Dispose();
+    }
+
+    /**
+     * Tests code-snippets for errors.
+     *
+     * @param codeSnippets
+     * The code-snippets to test.
+     *
+     * @param error
+     * A value indicating whether an error is expected.
+     */
+    protected async TestCode(codeSnippets: string[], error: boolean)
+    {
+        for (let codeSnippet of codeSnippets)
+        {
+            Assert.strictEqual((await this.ProcessCode(codeSnippet)) !== 0, error);
+        }
+    }
+
+    /**
+     * Tests the `code` using `tsc`.
      *
      * @param code
-     * The code to execute.
+     * The code to test.
      *
-     * @return
+     * @returns
      * The exit-code of the test.
      */
-    protected async TestCode(code: string): Promise<number>
+    protected async ProcessCode(code: string): Promise<number>
     {
         await FileSystem.writeFile(this.TempDir.MakePath("index.ts"), code);
         return spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", this.TempDir.MakePath()]).status;
