@@ -89,7 +89,7 @@ export class RecommendedConfigTests extends ConfigurationTests
     }
 
     /**
-     * Registers the tests.
+     * @inheritdoc
      */
     protected RegisterInternal()
     {
