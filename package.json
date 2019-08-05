@@ -1,6 +1,6 @@
 {
   "name": "@manuth/tsconfig",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Provides recommended settings for TypeScript",
   "author": "Manuel Thalmann <m@nuth.ch>",
   "license": "MIT",
@@ -30,18 +30,18 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@manuth/tslint-presets": "^1.0.2",
-    "@types/fs-extra": "^7.0.0",
+    "@manuth/tslint-presets": "^1.0.3",
+    "@types/fs-extra": "^8.0.0",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.0.8",
+    "@types/node": "^12.6.9",
     "@types/npm-which": "^3.0.0",
-    "fs-extra": "^8.0.1",
-    "mocha": "^6.1.4",
+    "fs-extra": "^8.1.0",
+    "mocha": "^6.2.0",
     "npm-which": "^3.0.1",
     "rimraf": "^2.6.3",
     "temp-filesystem": "^1.1.2",
-    "tslint": "^5.17.0",
-    "typescript": "^3.5.2",
-    "typescript-tslint-plugin": "^0.5.0"
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3",
+    "typescript-tslint-plugin": "^0.5.4"
   }
 }
