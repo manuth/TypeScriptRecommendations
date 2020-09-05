@@ -98,8 +98,9 @@ export class RecommendedConfigTests extends ConfigurationTests
             () =>
             {
                 suiteSetup(
-                    async () =>
+                    async function()
                     {
+                        this.timeout(8 * 1000);
                         await FileSystem.ensureFile(this.TempDir.MakePath("index.ts"));
                         spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", this.TempDir.MakePath()]);
                     });
