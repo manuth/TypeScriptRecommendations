@@ -3,7 +3,7 @@ import { spawnSync } from "child_process";
 import { TempDirectory } from "@manuth/temp-files";
 import FileSystem = require("fs-extra");
 import npmWhich = require("npm-which");
-import { IRuleTest } from "./IRuleTest.test";
+import { IRuleTest } from "./IRuleTest";
 
 /**
  * Provides tests for a typescript-configuration.
@@ -107,6 +107,7 @@ export class ConfigurationTests
     protected async Initialize(): Promise<void>
     {
         this.TempDir = new TempDirectory();
+
         await FileSystem.writeJSON(
             this.TempDir.MakePath("tsconfig.json"),
             {

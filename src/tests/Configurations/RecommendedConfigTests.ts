@@ -3,7 +3,7 @@ import { spawnSync } from "child_process";
 import Path = require("path");
 import FileSystem = require("fs-extra");
 import npmWhich = require("npm-which");
-import { ConfigurationTests } from "./ConfigurationTests.test";
+import { ConfigurationTests } from "./ConfigurationTests";
 
 /**
  * Provides tests for the recommended configuration.
