@@ -1,6 +1,6 @@
 {
   "name": "@manuth/tsconfig",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Provides recommended settings for TypeScript",
   "author": "Manuel Thalmann <m@nuth.ch>",
   "license": "MIT",
