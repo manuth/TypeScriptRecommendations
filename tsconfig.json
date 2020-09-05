@@ -6,8 +6,5 @@
         "rootDir": "./src",
         "outDir": "./lib"
     },
-    "include": [],
-    "exclude": [
-        "./src/tests/**/*"
-    ]
+    "files": []
 }
