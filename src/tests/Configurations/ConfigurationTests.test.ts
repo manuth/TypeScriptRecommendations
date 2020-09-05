@@ -39,7 +39,7 @@ export class ConfigurationTests
     /**
      * Registers the tests.
      */
-    public Register()
+    public Register(): void
     {
         suite(
             "Checking the integrity of the config…",
@@ -54,7 +54,7 @@ export class ConfigurationTests
     /**
      * Registers the tests.
      */
-    protected RegisterInternal()
+    protected RegisterInternal(): void
     {
         let self = this;
 
@@ -104,7 +104,7 @@ export class ConfigurationTests
     /**
      * Initializes the tests.
      */
-    protected async Initialize()
+    protected async Initialize(): Promise<void>
     {
         this.TempDir = new TempDirectory();
         await FileSystem.writeJSON(
@@ -117,7 +117,7 @@ export class ConfigurationTests
     /**
      * Disposes the tests.
      */
-    protected Dispose()
+    protected Dispose(): void
     {
         this.TempDir.Dispose();
     }
@@ -131,7 +131,7 @@ export class ConfigurationTests
      * @param error
      * A value indicating whether an error is expected.
      */
-    protected async TestCode(codeSnippets: string[], error: boolean)
+    protected async TestCode(codeSnippets: string[], error: boolean): Promise<void>
     {
         for (let codeSnippet of codeSnippets)
         {
