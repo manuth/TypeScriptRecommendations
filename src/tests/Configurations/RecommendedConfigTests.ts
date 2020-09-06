@@ -3,7 +3,7 @@ import { spawnSync } from "child_process";
 import Path = require("path");
 import FileSystem = require("fs-extra");
 import npmWhich = require("npm-which");
-import { ConfigurationTests } from "./ConfigurationTests.test";
+import { ConfigurationTests } from "./ConfigurationTests";
 
 /**
  * Provides tests for the recommended configuration.
@@ -97,11 +97,14 @@ export class RecommendedConfigTests extends ConfigurationTests
             "Checking the file-creation…",
             () =>
             {
+                let self = this;
+
                 suiteSetup(
-                    async () =>
+                    async function()
                     {
-                        await FileSystem.ensureFile(this.TempDir.MakePath("index.ts"));
-                        spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", this.TempDir.MakePath()]);
+                        this.timeout(8 * 1000);
+                        await FileSystem.ensureFile(self.TempDir.MakePath("index.ts"));
+                        spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", self.TempDir.MakePath()]);
                     });
 
                 test(
