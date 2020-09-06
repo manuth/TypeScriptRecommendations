@@ -1,9 +1,9 @@
 import Assert = require("assert");
 import { spawnSync } from "child_process";
+import Path = require("path");
 import FileSystem = require("fs-extra");
 import npmWhich = require("npm-which");
-import Path = require("path");
-import { ConfigurationTests } from "./ConfigurationTests.test";
+import { ConfigurationTests } from "./ConfigurationTests";
 
 /**
  * Provides tests for the recommended configuration.
@@ -11,7 +11,7 @@ import { ConfigurationTests } from "./ConfigurationTests.test";
 export class RecommendedConfigTests extends ConfigurationTests
 {
     /**
-     * Initializes a new instance of the `RecommendedConfigTests` class.
+     * Initializes a new instance of the 'RecommendedConfigTests' class.
      */
     public constructor()
     {
@@ -24,7 +24,7 @@ export class RecommendedConfigTests extends ConfigurationTests
                     await FileSystem.writeJSON(this.TempDir.MakePath("test.json"), {});
                 },
                 ValidCode: [
-                    `import test = require("./test.json");`
+                    'import test = require("./test.json");'
                 ],
                 Postprocess: async () =>
                 {
@@ -38,25 +38,25 @@ export class RecommendedConfigTests extends ConfigurationTests
                     await FileSystem.writeFile(this.TempDir.MakePath("Test.ts"), "export = 1;");
                 },
                 ValidCode: [
-                    `import test = require("./Test");`
+                    'import test = require("./Test");'
                 ],
                 InvalidCode: [
-                    `import test = require("./tEsT");`
+                    'import test = require("./tEsT");'
                 ]
             },
             {
                 RuleName: "alwaysStrict",
                 InvalidCode: [
-                    `let interface = "";`
+                    'let interface = "";'
                 ]
             },
             {
                 RuleName: "noImplicitAny",
                 ValidCode: [
-                    `function test(data: any) { }`
+                    "function test(data: any) { }"
                 ],
                 InvalidCode: [
-                    `function test(data) { }`
+                    "function test(data) { }"
                 ]
             },
             {
@@ -76,13 +76,13 @@ export class RecommendedConfigTests extends ConfigurationTests
                     }`
                 ],
                 InvalidCode: [
-                    `() => { if (Math.random() > 0.5) return 1; }`
+                    "() => { if (Math.random() > 0.5) return 1; }"
                 ]
             },
             {
                 RuleName: "noImplicitThis",
                 InvalidCode: [
-                    `() => { this.Test = ""; }`
+                    '() => { this.Test = ""; }'
                 ]
             }
         ];
@@ -91,17 +91,20 @@ export class RecommendedConfigTests extends ConfigurationTests
     /**
      * @inheritdoc
      */
-    protected RegisterInternal()
+    protected RegisterInternal(): void
     {
         suite(
             "Checking the file-creation…",
             () =>
             {
+                let self = this;
+
                 suiteSetup(
-                    async () =>
+                    async function()
                     {
-                        await FileSystem.ensureFile(this.TempDir.MakePath("index.ts"));
-                        spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", this.TempDir.MakePath()]);
+                        this.timeout(8 * 1000);
+                        await FileSystem.ensureFile(self.TempDir.MakePath("index.ts"));
+                        spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", self.TempDir.MakePath()]);
                     });
 
                 test(

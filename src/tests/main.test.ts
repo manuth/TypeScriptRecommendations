@@ -1,6 +1,8 @@
+import { ConfigurationTests } from "./Configurations";
+
 suite(
     "TypeScriptRecommendations",
     () =>
     {
-        require("./Configurations/main.test");
+        ConfigurationTests();
     });
