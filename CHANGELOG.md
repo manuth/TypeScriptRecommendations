@@ -6,7 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## TypeScriptRecommendations [Unreleased]
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.5...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.6...dev)
+
+## TypeScriptRecommendations v1.2.6
+### Fixed
+  - Broken dependabot-settings
+  - Incorrect typescript-settings
+
+### Updated
+  - Drone-pipelines
+  - All packages
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.5...v1.2.6)
 
 ## TypeScriptRecommendations v1.2.5
 ### Fixed
