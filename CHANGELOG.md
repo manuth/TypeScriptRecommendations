@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## TypeScriptRecommendations v1.2.5
 ### Fixed
-  - All vulnerabilities
+  - All vulnerabilities in dependencies
 
 [Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.4...v1.2.5)
 
