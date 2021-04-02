@@ -28,5 +28,9 @@ jobs:
       with:
         languages: ${{ matrix.language }}
 
+    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
