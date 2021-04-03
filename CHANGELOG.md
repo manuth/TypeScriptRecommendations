@@ -5,8 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## TypeScriptRecommendations [Unreleased]
+### Fixed
+  - Vulnerabilities in dependencies
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.6...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.8...dev)
+
+## TypeScriptRecommendations v1.2.8
+### Fixed
+  - Vulnerabilities in dependencies
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.7...v1.2.8)
+
+## TypeScriptRecommendations v1.2.7
+### Updated
+  - All dependencies
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.6...v1.2.7)
 
 ## TypeScriptRecommendations v1.2.6
 ### Fixed
@@ -21,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## TypeScriptRecommendations v1.2.5
 ### Fixed
-  - All vulnerabilities
+  - All vulnerabilities in dependencies
 
 [Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.4...v1.2.5)
 
