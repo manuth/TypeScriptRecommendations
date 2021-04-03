@@ -8,7 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
   - Vulnerabilities in dependencies
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.7...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.8...dev)
+
+## TypeScriptRecommendations v1.2.8
+### Fixed
+  - Vulnerabilities in dependencies
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.7...v1.2.8)
 
 ## TypeScriptRecommendations v1.2.7
 ### Updated
