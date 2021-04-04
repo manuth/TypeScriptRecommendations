@@ -5,10 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## TypeScriptRecommendations [Unreleased]
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.9...dev)
+
+## TypeScriptRecommendations v1.2.9
 ### Updated
   - All dependencies
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.8...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.8...v1.2.9)
 
 ## TypeScriptRecommendations v1.2.8
 ### Fixed
