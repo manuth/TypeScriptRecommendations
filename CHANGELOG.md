@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## TypeScriptRecommendations [Unreleased]
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.10...dev)
+
+## TypeScriptRecommendations v1.2.10
 ### Fixed
   - Broken drone-pipelines
 
@@ -12,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - All dependencies
   - Drone-pipelines to use small-sized images
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.9...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.9...v1.2.10)
 
 ## TypeScriptRecommendations v1.2.9
 ### Updated
