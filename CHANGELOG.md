@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Broken drone-pipelines
 
 ### Updated
+  - All dependencies
   - Drone-pipelines to use small-sized images
 
 [Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.9...dev)
