@@ -11,11 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## TypeScriptRecommendations v1.2.10
 ### Fixed
   - Broken drone-pipelines
+  - Broken Auto-Merge workflow
 
 ### Updated
   - All dependencies
   - Drone-pipelines to use small-sized images
-  - Broken Auto-Merge workflow
 
 [Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.9...v1.2.10)
 
