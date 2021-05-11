@@ -1,5 +1,5 @@
 {
-    "extends": "@manuth/tsconfig/recommended",
+    "extends": "./recommended",
     "compilerOptions": {
         "declaration": true,
         "module": "CommonJS",
