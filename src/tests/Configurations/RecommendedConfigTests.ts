@@ -91,7 +91,7 @@ export class RecommendedConfigTests extends ConfigurationTests
     /**
      * @inheritdoc
      */
-    protected RegisterInternal(): void
+    protected override RegisterInternal(): void
     {
         suite(
             "Checking the file-creation…",
