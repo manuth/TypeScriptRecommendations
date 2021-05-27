@@ -60,6 +60,33 @@ export class RecommendedConfigTests extends ConfigurationTests
                 ]
             },
             {
+                RuleName: "noImplicitOverride",
+                ValidCode: [
+                    `
+                        class A
+                        {
+                            public TestMethod() { }
+                        }
+
+                        class B extends A
+                        {
+                            public override TestMethod() { }
+                        }`
+                ],
+                InvalidCode: [
+                    `
+                        class A
+                        {
+                            public TestMethod() { }
+                        }
+
+                        class B extends A
+                        {
+                            public TestMethod() { }
+                        }`
+                ]
+            },
+            {
                 RuleName: "noImplicitReturns",
                 ValidCode: [
                     `

@@ -6,8 +6,8 @@
         "forceConsistentCasingInFileNames": true,
         "alwaysStrict": true,
         "noImplicitAny": true,
+        "noImplicitOverride": true,
         "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noImplicitOverride": true
+        "noImplicitThis": true
     }
 }
