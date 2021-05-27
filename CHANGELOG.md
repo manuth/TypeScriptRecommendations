@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## TypeScriptRecommendations [Unreleased]
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v2.0.0...dev)
+
+## TypeScriptRecommendations v2.0.0
 ### Breaking
   - Add TypeScript 4.3's `noImplicitOverride` option
 
@@ -16,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Recursive dependency in `package.json`
   - All vulnerabilities in dependencies
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.10...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.2.10...v2.0.0)
 
 ## TypeScriptRecommendations v1.2.10
 ### Fixed
