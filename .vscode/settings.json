@@ -4,5 +4,17 @@
     "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
     "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
     "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
-    "typescript.format.placeOpenBraceOnNewLineForFunctions": true
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "files.associations": {
+        "recommended.json": "jsonc"
+    },
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "recommended.json"
+            ],
+            "url": "https://json.schemastore.org/tsconfig.json"
+        }
+    ]
 }
