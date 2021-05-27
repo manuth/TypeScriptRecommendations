@@ -1,7 +1,7 @@
-import Assert = require("assert");
+import { strictEqual } from "assert";
 import { spawnSync } from "child_process";
 import { TempDirectory } from "@manuth/temp-files";
-import FileSystem = require("fs-extra");
+import { writeFile, writeJSON } from "fs-extra";
 import npmWhich = require("npm-which");
 import { IRuleTest } from "./IRuleTest";
 
@@ -108,7 +108,7 @@ export class ConfigurationTests
     {
         this.TempDir = new TempDirectory();
 
-        await FileSystem.writeJSON(
+        await writeJSON(
             this.TempDir.MakePath("tsconfig.json"),
             {
                 extends: this.ConfigPath
@@ -136,7 +136,7 @@ export class ConfigurationTests
     {
         for (let codeSnippet of codeSnippets)
         {
-            Assert.strictEqual((await this.ProcessCode(codeSnippet)) !== 0, error);
+            strictEqual((await this.ProcessCode(codeSnippet)) !== 0, error);
         }
     }
 
@@ -151,7 +151,7 @@ export class ConfigurationTests
      */
     protected async ProcessCode(code: string): Promise<number>
     {
-        await FileSystem.writeFile(this.TempDir.MakePath("index.ts"), code);
+        await writeFile(this.TempDir.MakePath("index.ts"), code);
         return spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", this.TempDir.MakePath()]).status;
     }
 }
