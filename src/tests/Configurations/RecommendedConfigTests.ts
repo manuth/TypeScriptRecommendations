@@ -11,7 +11,7 @@ import { ConfigurationTests } from "./ConfigurationTests";
 export class RecommendedConfigTests extends ConfigurationTests
 {
     /**
-     * Initializes a new instance of the 'RecommendedConfigTests' class.
+     * Initializes a new instance of the {@link RecommendedConfigTests `RecommendedConfigTests`} class.
      */
     public constructor()
     {

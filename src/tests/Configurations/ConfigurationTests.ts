@@ -26,7 +26,7 @@ export class ConfigurationTests
     protected readonly ConfigPath: string;
 
     /**
-     * Initializes a new instance of the `ConfigurationTests` class.
+     * Initializes a new instance of the {@link ConfigurationTests `ConfigurationTests`} class.
      *
      * @param configPath
      * The path to the configuration to test.
@@ -141,7 +141,7 @@ export class ConfigurationTests
     }
 
     /**
-     * Tests the `code` using `tsc`.
+     * Tests the specified {@link code `code`} using `tsc`.
      *
      * @param code
      * The code to test.
