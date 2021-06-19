@@ -1,7 +1,7 @@
-import Assert = require("assert");
+import { strictEqual } from "assert";
 import { spawnSync } from "child_process";
-import Path = require("path");
-import FileSystem = require("fs-extra");
+import { join } from "path";
+import { ensureFile, existsSync, remove, writeFile, writeJSON } from "fs-extra";
 import npmWhich = require("npm-which");
 import { ConfigurationTests } from "./ConfigurationTests";
 
@@ -15,27 +15,27 @@ export class RecommendedConfigTests extends ConfigurationTests
      */
     public constructor()
     {
-        super(Path.join(__dirname, "..", "..", "..", "recommended"));
+        super(join(__dirname, "..", "..", "..", "recommended"));
         this.RuleTests = [
             {
                 RuleName: "resolveJsonModule",
                 Preprocess: async () =>
                 {
-                    await FileSystem.writeJSON(this.TempDir.MakePath("test.json"), {});
+                    await writeJSON(this.TempDir.MakePath("test.json"), {});
                 },
                 ValidCode: [
                     'import test = require("./test.json");'
                 ],
                 Postprocess: async () =>
                 {
-                    await FileSystem.remove(this.TempDir.MakePath("test.json"));
+                    await remove(this.TempDir.MakePath("test.json"));
                 }
             },
             {
                 RuleName: "forceConsistentCasingInFileNames",
                 Preprocess: async () =>
                 {
-                    await FileSystem.writeFile(this.TempDir.MakePath("Test.ts"), "export = 1;");
+                    await writeFile(this.TempDir.MakePath("Test.ts"), "export = 1;");
                 },
                 ValidCode: [
                     'import test = require("./Test");'
@@ -130,7 +130,7 @@ export class RecommendedConfigTests extends ConfigurationTests
                     async function()
                     {
                         this.timeout(8 * 1000);
-                        await FileSystem.ensureFile(self.TempDir.MakePath("index.ts"));
+                        await ensureFile(self.TempDir.MakePath("index.ts"));
                         spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", self.TempDir.MakePath()]);
                     });
 
@@ -138,14 +138,14 @@ export class RecommendedConfigTests extends ConfigurationTests
                     "Checking whether declaration-files are created…",
                     () =>
                     {
-                        Assert.strictEqual(FileSystem.existsSync(this.TempDir.MakePath("index.d.ts")), true);
+                        strictEqual(existsSync(this.TempDir.MakePath("index.d.ts")), true);
                     });
 
                 test(
                     "Checking whether source-maps are created…",
                     () =>
                     {
-                        Assert.strictEqual(FileSystem.existsSync(this.TempDir.MakePath("index.js.map")), true);
+                        strictEqual(existsSync(this.TempDir.MakePath("index.js.map")), true);
                     });
             });
 
