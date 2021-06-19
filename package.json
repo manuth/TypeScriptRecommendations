@@ -35,6 +35,7 @@
     "test": "mocha",
     "prepare": "npm run rebuild"
   },
+  "dependencies": {},
   "devDependencies": {
     "@manuth/eslint-plugin-typescript": "^3.0.0",
     "@manuth/temp-files": "^2.0.4",
