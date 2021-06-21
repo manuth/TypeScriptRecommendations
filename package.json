@@ -33,7 +33,8 @@
     "lint": "npm run lint-base -- --ext .js,.jsx,.ts,.tsx ./src .eslintrc.js",
     "lint-ide": "npm run lint || exit 0",
     "test": "mocha",
-    "prepare": "npm run rebuild"
+    "prepare": "npm run patchTypeScript && npm run rebuild",
+    "patchTypeScript": "npx ts-patch install --persist"
   },
   "dependencies": {},
   "devDependencies": {
@@ -44,6 +45,7 @@
     "@types/mocha": "^8.2.2",
     "@types/node": "^15.12.4",
     "@types/npm-which": "^3.0.0",
+    "@types/ts-nameof": "^4.2.1",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/eslint-plugin-tslint": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
@@ -56,6 +58,8 @@
     "npm-which": "^3.0.1",
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.19",
+    "ts-nameof": "^5.0.0",
+    "ts-patch": "^1.3.3",
     "tslint": "^6.1.3",
     "typescript": "^4.3.4"
   }
