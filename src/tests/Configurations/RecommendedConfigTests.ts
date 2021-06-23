@@ -3,6 +3,7 @@ import { spawnSync } from "child_process";
 import { join } from "path";
 import { ensureFile, existsSync, remove, writeFile, writeJSON } from "fs-extra";
 import npmWhich = require("npm-which");
+import { CompilerOptions } from "typescript";
 import { ConfigurationTests } from "./ConfigurationTests";
 
 /**
@@ -11,14 +12,14 @@ import { ConfigurationTests } from "./ConfigurationTests";
 export class RecommendedConfigTests extends ConfigurationTests
 {
     /**
-     * Initializes a new instance of the 'RecommendedConfigTests' class.
+     * Initializes a new instance of the {@link RecommendedConfigTests `RecommendedConfigTests`} class.
      */
     public constructor()
     {
         super(join(__dirname, "..", "..", "..", "recommended"));
         this.RuleTests = [
             {
-                RuleName: "resolveJsonModule",
+                RuleName: nameof<CompilerOptions>((options) => options.resolveJsonModule),
                 Preprocess: async () =>
                 {
                     await writeJSON(this.TempDir.MakePath("test.json"), {});
@@ -32,7 +33,7 @@ export class RecommendedConfigTests extends ConfigurationTests
                 }
             },
             {
-                RuleName: "forceConsistentCasingInFileNames",
+                RuleName: nameof<CompilerOptions>((options) => options.forceConsistentCasingInFileNames),
                 Preprocess: async () =>
                 {
                     await writeFile(this.TempDir.MakePath("Test.ts"), "export = 1;");
@@ -45,13 +46,13 @@ export class RecommendedConfigTests extends ConfigurationTests
                 ]
             },
             {
-                RuleName: "alwaysStrict",
+                RuleName: nameof<CompilerOptions>((options) => options.alwaysStrict),
                 InvalidCode: [
                     'let interface = "";'
                 ]
             },
             {
-                RuleName: "noImplicitAny",
+                RuleName: nameof<CompilerOptions>((options) => options.noImplicitAny),
                 ValidCode: [
                     "function test(data: any) { }"
                 ],
@@ -60,7 +61,7 @@ export class RecommendedConfigTests extends ConfigurationTests
                 ]
             },
             {
-                RuleName: "noImplicitOverride",
+                RuleName: nameof<CompilerOptions>((options) => options.noImplicitOverride),
                 ValidCode: [
                     `
                         class A
@@ -87,7 +88,7 @@ export class RecommendedConfigTests extends ConfigurationTests
                 ]
             },
             {
-                RuleName: "noImplicitReturns",
+                RuleName: nameof<CompilerOptions>((options) => options.noImplicitReturns),
                 ValidCode: [
                     `
                     () =>
@@ -107,7 +108,7 @@ export class RecommendedConfigTests extends ConfigurationTests
                 ]
             },
             {
-                RuleName: "noImplicitThis",
+                RuleName: nameof<CompilerOptions>((options) => options.noImplicitThis),
                 InvalidCode: [
                     '() => { this.Test = ""; }'
                 ]

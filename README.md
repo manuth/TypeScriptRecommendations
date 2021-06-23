@@ -19,7 +19,7 @@ Simply inherit the settings provided by this module by setting the `extends`-opt
 }
 ```
 
-By setting this option your tsconfig-file will inherint the `recommended.json`-settings located in the `@manuth/tsconfig`-module.
+By setting this option your tsconfig-file will inherit the `recommended.json`-settings located in the `@manuth/tsconfig`-module.
 
 ### Configurations
 Currently `TypeScriptRecommendations` provides following configuration-presets:
