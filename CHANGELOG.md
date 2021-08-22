@@ -6,7 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## TypeScriptRecommendations [Unreleased]
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v2.0.2...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v2.0.3...dev)
+
+## TypeScriptRecommendations v2.0.3
+### Fixed
+  - Vulnerabilities in dependencies
+
+### Added
+  - Support for for parallel step-execution in drone-pipelines
+
+### Updated
+  - All dependencies
+  - Publish-scripts in drone-pipelines
+  - Settings to disable timeouts for mocha unit-tests
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v2.0.2...v2.0.3)
 
 ## TypeScriptRecommendations v2.0.2
 ### Fixed
