@@ -1,3 +1,4 @@
+import { basename } from "path";
 import { RecommendedTests } from "./Recommended.test";
 
 /**
@@ -6,7 +7,7 @@ import { RecommendedTests } from "./Recommended.test";
 export function ConfigurationTests(): void
 {
     suite(
-        "Configurations",
+        basename(__dirname),
         () =>
         {
             RecommendedTests();
