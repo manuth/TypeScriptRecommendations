@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## TypeScriptRecommendations [Unreleased]
+### Fixed
+  - Vulnerabilities in dependencies
+
+### Added
+  - Support for for parallel step-execution in drone-pipelines
+
+### Updated
+  - All dependencies
+  - Publish-scripts in drone-pipelines
+  - Settings to disable timeouts for mocha unit-tests
 
 [Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v2.0.2...dev)
 
