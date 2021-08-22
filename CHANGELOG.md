@@ -142,7 +142,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.0.1...v1.1.0)
 
 ## TypeScriptRecommendations v1.0.1
-  - Remove malworking JavaScript-code
+  - Remove non-functioning JavaScript-code
 
 [Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v1.0.0...v1.0.1)
 
