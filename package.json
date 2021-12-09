@@ -37,22 +37,22 @@
     "patchTypeScript": "ts-patch install && ts-patch --persist"
   },
   "devDependencies": {
-    "@manuth/eslint-plugin-typescript": "^3.2.4",
-    "@manuth/temp-files": "^2.0.6",
-    "@types/fs-extra": "^9.0.12",
+    "@manuth/eslint-plugin-typescript": "^3.2.6",
+    "@manuth/temp-files": "^2.0.7",
+    "@types/fs-extra": "^9.0.13",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.7.1",
+    "@types/node": "^16.11.12",
     "@types/npm-which": "^3.0.1",
     "@types/ts-nameof": "^4.2.1",
-    "eslint": "^7.32.0",
+    "eslint": "^8.4.1",
     "fs-extra": "^10.0.0",
-    "mocha": "^9.1.0",
+    "mocha": "^9.1.3",
     "npm-which": "^3.0.1",
     "rimraf": "^3.0.2",
-    "source-map-support": "^0.5.19",
+    "source-map-support": "^0.5.21",
     "ts-nameof": "^5.0.0",
-    "ts-node": "^10.2.1",
-    "ts-patch": "^1.4.2",
-    "typescript": "^4.3.5"
+    "ts-node": "^10.4.0",
+    "ts-patch": "^2.0.1",
+    "typescript": "^4.5.3"
   }
 }
