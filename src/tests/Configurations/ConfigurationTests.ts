@@ -18,7 +18,7 @@ export class ConfigurationTests
     /**
      * Gets or sets the temporary directory for the tests.
      */
-    protected TempDir: TempDirectory;
+    protected TempDir: TempDirectory = null;
 
     /**
      * Gets the path to the configuration to test.
