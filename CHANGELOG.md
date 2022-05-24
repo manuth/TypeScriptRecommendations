@@ -6,7 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## TypeScriptRecommendations [Unreleased]
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v3.0.0...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v3.0.1...dev)
+
+## TypeScriptRecommendations v3.0.1
+### Updated
+  - All dependencies
+
+### Fixed
+  - Vulnerabilities in dependencies
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v3.0.0...v3.0.1)
 
 ## TypeScriptRecommendations v3.0.0
 ### Updated
