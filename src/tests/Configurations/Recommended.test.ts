@@ -1,4 +1,4 @@
-import { RecommendedConfigTests } from "./RecommendedConfigTests";
+import { RecommendedConfigTests } from "./RecommendedConfigTests.js";
 
 /**
  * Registers tests for the `Recommended` configuration.

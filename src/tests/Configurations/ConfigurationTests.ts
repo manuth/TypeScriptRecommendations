@@ -1,9 +1,12 @@
 import { strictEqual } from "assert";
 import { spawnSync } from "child_process";
+import { fileURLToPath } from "url";
 import { TempDirectory } from "@manuth/temp-files";
-import { writeFile, writeJSON } from "fs-extra";
-import npmWhich = require("npm-which");
-import { IRuleTest } from "./IRuleTest";
+import fs from "fs-extra";
+import npmWhich from "npm-which";
+import { IRuleTest } from "./IRuleTest.js";
+
+const { writeFile, writeJSON } = fs;
 
 /**
  * Provides tests for a typescript-configuration.
@@ -152,6 +155,9 @@ export class ConfigurationTests
     protected async ProcessCode(code: string): Promise<number>
     {
         await writeFile(this.TempDir.MakePath("index.ts"), code);
-        return spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", this.TempDir.MakePath()]).status;
+
+        return spawnSync(
+            npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("tsc"),
+            ["-p", this.TempDir.MakePath()]).status;
     }
 }
