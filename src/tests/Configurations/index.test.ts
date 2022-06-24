@@ -1,5 +1,5 @@
 import { basename } from "path";
-import { RecommendedTests } from "./Recommended.test";
+import { RecommendedTests } from "./Recommended.test.js";
 
 /**
  * Registers tests for `Configuration`-components.
@@ -7,7 +7,7 @@ import { RecommendedTests } from "./Recommended.test";
 export function ConfigurationTests(): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             RecommendedTests();

@@ -1,10 +1,13 @@
 import { strictEqual } from "assert";
 import { spawnSync } from "child_process";
 import { join } from "path";
-import { ensureFile, existsSync, remove, writeFile, writeJSON } from "fs-extra";
-import npmWhich = require("npm-which");
+import { fileURLToPath } from "url";
+import fs from "fs-extra";
+import npmWhich from "npm-which";
 import { CompilerOptions } from "typescript";
-import { ConfigurationTests } from "./ConfigurationTests";
+import { ConfigurationTests } from "./ConfigurationTests.js";
+
+const { ensureFile, existsSync, remove, writeFile, writeJSON } = fs;
 
 /**
  * Provides tests for the recommended configuration.
@@ -16,7 +19,8 @@ export class RecommendedConfigTests extends ConfigurationTests
      */
     public constructor()
     {
-        super(join(__dirname, "..", "..", "..", "recommended"));
+        let lel = import.meta.url;
+        super(join(fileURLToPath(new URL(".", lel)), "..", "..", "..", "recommended"));
         this.RuleTests = [
             {
                 RuleName: nameof<CompilerOptions>((options) => options.resolveJsonModule),
@@ -132,7 +136,7 @@ export class RecommendedConfigTests extends ConfigurationTests
                     {
                         this.timeout(8 * 1000);
                         await ensureFile(self.TempDir.MakePath("index.ts"));
-                        spawnSync(npmWhich(__dirname).sync("tsc"), ["-p", self.TempDir.MakePath()]);
+                        spawnSync(npmWhich(new URL(".", import.meta.url).pathname).sync("tsc"), ["-p", self.TempDir.MakePath()]);
                     });
 
                 test(
