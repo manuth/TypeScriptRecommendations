@@ -1,7 +1,7 @@
-import { strictEqual } from "assert";
-import { spawnSync } from "child_process";
-import { join } from "path";
-import { fileURLToPath } from "url";
+import { strictEqual } from "node:assert";
+import { spawnSync } from "node:child_process";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import fs from "fs-extra";
 import npmWhich from "npm-which";
 import { CompilerOptions } from "typescript";
