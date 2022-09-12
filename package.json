@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@manuth/eslint-plugin-typescript": "^3.3.0",
-    "@manuth/temp-files": "^2.0.8",
+    "@manuth/temp-files": "^3.0.2",
     "@types/fs-extra": "^9.0.13",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.0",
