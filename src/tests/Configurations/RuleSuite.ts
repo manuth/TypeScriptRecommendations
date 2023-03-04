@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import fs from "fs-extra";
 import npmWhich from "npm-which";
 import { IRuleTest } from "./IRuleTest.js";
+import { TestContext } from "./TestContext.js";
 import { TSConfigSuite } from "./TSConfigSuite.js";
 
 const { writeFile } = fs;
@@ -73,8 +74,11 @@ export class RuleSuite extends TSConfigSuite
 
     /**
      * Registers the tests.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected override RegisterInternal(): void
+    protected override RegisterInternal(context: TestContext): void
     {
         let self = this;
 
@@ -86,7 +90,7 @@ export class RuleSuite extends TSConfigSuite
                 {
                     this.slow(30 * 1000);
                     this.timeout(60 * 1000);
-                    await self.TestCode(self.RuleTest.ValidCode, false);
+                    await self.TestCode(context, self.RuleTest.ValidCode, false);
                 });
         }
 
@@ -98,39 +102,48 @@ export class RuleSuite extends TSConfigSuite
                 {
                     this.slow(30 * 1000);
                     this.timeout(60 * 1000);
-                    await self.TestCode(self.RuleTest.InvalidCode, true);
+                    await self.TestCode(context, self.RuleTest.InvalidCode, true);
                 });
         }
     }
 
     /**
      * @inheritdoc
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected override async SuiteSetup(): Promise<void>
+    protected override async SuiteSetup(context: TestContext): Promise<void>
     {
-        await super.SuiteSetup();
+        await super.SuiteSetup(context);
 
         if (this.RuleTest.Preprocess)
         {
-            this.RuleTest.Preprocess();
+            this.RuleTest.Preprocess(context);
         }
     }
 
     /**
      * @inheritdoc
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected override async SuiteTeardown(): Promise<void>
+    protected override async SuiteTeardown(context: TestContext): Promise<void>
     {
-        await super.SuiteTeardown();
+        await super.SuiteTeardown(context);
 
         if (this.RuleTest.Postprocess)
         {
-            this.RuleTest.Postprocess();
+            this.RuleTest.Postprocess(context);
         }
     }
 
     /**
      * Tests code-snippets for errors.
+     *
+     * @param context
+     * The context of the underlying tests.
      *
      * @param codeSnippets
      * The code-snippets to test.
@@ -138,16 +151,19 @@ export class RuleSuite extends TSConfigSuite
      * @param error
      * A value indicating whether an error is expected.
      */
-    protected async TestCode(codeSnippets: string[], error: boolean): Promise<void>
+    protected async TestCode(context: TestContext, codeSnippets: string[], error: boolean): Promise<void>
     {
         for (let codeSnippet of codeSnippets)
         {
-            strictEqual((await this.ProcessCode(codeSnippet)) !== 0, error);
+            strictEqual((await this.ProcessCode(context, codeSnippet)) !== 0, error);
         }
     }
 
     /**
      * Tests the specified {@link code `code`} using `tsc`.
+     *
+     * @param context
+     * The context of the underlying tests.
      *
      * @param code
      * The code to test.
@@ -155,12 +171,12 @@ export class RuleSuite extends TSConfigSuite
      * @returns
      * The exit-code of the test.
      */
-    protected async ProcessCode(code: string): Promise<number>
+    protected async ProcessCode(context: TestContext, code: string): Promise<number>
     {
-        await writeFile(this.TempDir.MakePath("index.ts"), code);
+        await writeFile(context.TempDir.MakePath("index.ts"), code);
 
         return spawnSync(
             npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("tsc"),
-            ["-p", this.TempDir.MakePath()]).status;
+            ["-p", context.TempDir.MakePath()]).status;
     }
 }

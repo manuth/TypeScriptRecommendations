@@ -1,5 +1,6 @@
 import { IRuleTest } from "./IRuleTest.js";
 import { RuleSuite } from "./RuleSuite.js";
+import { TestContext } from "./TestContext.js";
 import { TSConfigSuite } from "./TSConfigSuite.js";
 
 /**
@@ -47,8 +48,11 @@ export abstract class ConfigurationSuite extends TSConfigSuite
 
     /**
      * Registers the tests.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected override RegisterInternal(): void
+    protected override RegisterInternal(context: TestContext): void
     {
         for (let ruleTest of this.RuleTests)
         {

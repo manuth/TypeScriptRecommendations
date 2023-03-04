@@ -1,5 +1,5 @@
-import { TempDirectory } from "@manuth/temp-files";
 import fs from "fs-extra";
+import { TestContext } from "./TestContext.js";
 
 const { writeJSON } = fs;
 
@@ -9,11 +9,6 @@ const { writeJSON } = fs;
 export abstract class TSConfigSuite
 {
     /**
-     * Gets or sets the temporary directory for the tests.
-     */
-    private tempDir: TempDirectory = null;
-
-    /**
      * Gets the title of the suite.
      */
     protected abstract get Title(): string;
@@ -22,19 +17,6 @@ export abstract class TSConfigSuite
      * Gets the path to the configuration to test.
      */
     public abstract get ConfigPath(): string;
-
-    /**
-     * Gets the temporary directory of the test.
-     */
-    protected get TempDir(): TempDirectory
-    {
-        if (this.tempDir === null)
-        {
-            this.tempDir = new TempDirectory();
-        }
-
-        return this.tempDir;
-    }
 
     /**
      * Initializes a new instance of the {@link TSConfigSuite `TSConfigSuite`} class.
@@ -47,58 +29,78 @@ export abstract class TSConfigSuite
      */
     public Register(): void
     {
+        let context = new TestContext();
+
         suite(
             this.Title,
             () =>
             {
-                suiteSetup(async () => this.SuiteSetup());
-                suiteTeardown(async () => this.SuiteTeardown());
-                this.RegisterInternal();
-                setup(async () => this.Setup());
-                teardown(async () => this.Teardown());
+                suiteSetup(async () => this.SuiteSetup(context));
+                suiteTeardown(async () => this.SuiteTeardown(context));
+                this.RegisterInternal(context);
+                setup(async () => this.Setup(context));
+                teardown(async () => this.Teardown(context));
             });
     }
 
     /**
      * Registers all suites and tests inside this suite.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected abstract RegisterInternal(): void;
+    protected abstract RegisterInternal(context: TestContext): void;
 
     /**
      * Prepares the test suite.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected async SuiteSetup(): Promise<void>
+    protected async SuiteSetup(context: TestContext): Promise<void>
     {
-        return this.Initialize();
+        return this.Initialize(context);
     }
 
     /**
      * Disposes the resources of the test suite.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected async SuiteTeardown(): Promise<void>
+    protected async SuiteTeardown(context: TestContext): Promise<void>
     {
-        return this.Dispose();
+        return this.Dispose(context);
     }
 
     /**
      * Prepares each test.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected async Setup(): Promise<void>
+    protected async Setup(context: TestContext): Promise<void>
     { }
 
     /**
      * Disposes the resources after each test.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected async Teardown(): Promise<void>
+    protected async Teardown(context: TestContext): Promise<void>
     { }
 
     /**
      * Initializes the test suite.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected async Initialize(): Promise<void>
+    protected async Initialize(context: TestContext): Promise<void>
     {
         await writeJSON(
-            this.TempDir.MakePath("tsconfig.json"),
+            context.TempDir.MakePath("tsconfig.json"),
             {
                 extends: this.ConfigPath
             });
@@ -106,9 +108,12 @@ export abstract class TSConfigSuite
 
     /**
      * Disposes the test suite.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected async Dispose(): Promise<void>
+    protected async Dispose(context: TestContext): Promise<void>
     {
-        this.TempDir.Dispose();
+        context.TempDir.Dispose();
     }
 }

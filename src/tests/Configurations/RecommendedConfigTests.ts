@@ -7,6 +7,7 @@ import npmWhich from "npm-which";
 import { CompilerOptions } from "typescript";
 import { ConfigurationSuite } from "./ConfigurationTests.js";
 import { IRuleTest } from "./IRuleTest.js";
+import { TestContext } from "./TestContext.js";
 import { TSConfigSuite } from "./TSConfigSuite.js";
 
 const { ensureFile, existsSync, remove, writeFile, writeJSON } = fs;
@@ -32,23 +33,23 @@ export class RecommendedConfigTests extends ConfigurationSuite
         return [
             {
                 RuleName: nameof<CompilerOptions>((options) => options.resolveJsonModule),
-                Preprocess: async () =>
+                Preprocess: async (context) =>
                 {
-                    await writeJSON(this.TempDir.MakePath("test.json"), {});
+                    await writeJSON(context.TempDir.MakePath("test.json"), {});
                 },
                 ValidCode: [
                     'import test = require("./test.json");'
                 ],
-                Postprocess: async () =>
+                Postprocess: async (context) =>
                 {
-                    await remove(this.TempDir.MakePath("test.json"));
+                    await remove(context.TempDir.MakePath("test.json"));
                 }
             },
             {
                 RuleName: nameof<CompilerOptions>((options) => options.forceConsistentCasingInFileNames),
-                Preprocess: async () =>
+                Preprocess: async (context) =>
                 {
-                    await writeFile(this.TempDir.MakePath("Test.ts"), "export = 1;");
+                    await writeFile(context.TempDir.MakePath("Test.ts"), "export = 1;");
                 },
                 ValidCode: [
                     'import test = require("./Test");'
@@ -130,38 +131,39 @@ export class RecommendedConfigTests extends ConfigurationSuite
 
     /**
      * @inheritdoc
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    protected override RegisterInternal(): void
+    protected override RegisterInternal(context: TestContext): void
     {
         suite(
             "Checking the file-creation…",
             () =>
             {
-                let self = this;
-
                 suiteSetup(
                     async function()
                     {
                         this.timeout(8 * 1000);
-                        await ensureFile(self.TempDir.MakePath("index.ts"));
-                        spawnSync(npmWhich(new URL(".", import.meta.url).pathname).sync("tsc"), ["-p", self.TempDir.MakePath()]);
+                        await ensureFile(context.TempDir.MakePath("index.ts"));
+                        spawnSync(npmWhich(new URL(".", import.meta.url).pathname).sync("tsc"), ["-p", context.TempDir.MakePath()]);
                     });
 
                 test(
                     "Checking whether declaration-files are created…",
                     () =>
                     {
-                        strictEqual(existsSync(this.TempDir.MakePath("index.d.ts")), true);
+                        strictEqual(existsSync(context.TempDir.MakePath("index.d.ts")), true);
                     });
 
                 test(
                     "Checking whether source-maps are created…",
                     () =>
                     {
-                        strictEqual(existsSync(this.TempDir.MakePath("index.js.map")), true);
+                        strictEqual(existsSync(context.TempDir.MakePath("index.js.map")), true);
                     });
             });
 
-        super.RegisterInternal();
+        super.RegisterInternal(context);
     }
 }
