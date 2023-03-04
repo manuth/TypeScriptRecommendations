@@ -5,23 +5,31 @@ import { fileURLToPath } from "node:url";
 import fs from "fs-extra";
 import npmWhich from "npm-which";
 import { CompilerOptions } from "typescript";
-import { ConfigurationTests } from "./ConfigurationTests.js";
+import { ConfigurationSuite } from "./ConfigurationTests.js";
+import { IRuleTest } from "./IRuleTest.js";
+import { TSConfigSuite } from "./TSConfigSuite.js";
 
 const { ensureFile, existsSync, remove, writeFile, writeJSON } = fs;
 
 /**
  * Provides tests for the recommended configuration.
  */
-export class RecommendedConfigTests extends ConfigurationTests
+export class RecommendedConfigTests extends ConfigurationSuite
 {
     /**
      * Initializes a new instance of the {@link RecommendedConfigTests `RecommendedConfigTests`} class.
      */
     public constructor()
     {
-        let lel = import.meta.url;
-        super(join(fileURLToPath(new URL(".", lel)), "..", "..", "..", "recommended"));
-        this.RuleTests = [
+        super(join(fileURLToPath(new URL(".", import.meta.url)), "..", "..", "..", "recommended"));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected override get RuleTests(): Array<IRuleTest | TSConfigSuite>
+    {
+        return [
             {
                 RuleName: nameof<CompilerOptions>((options) => options.resolveJsonModule),
                 Preprocess: async () =>

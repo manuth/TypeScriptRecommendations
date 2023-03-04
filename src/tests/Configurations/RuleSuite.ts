@@ -24,6 +24,22 @@ export class RuleSuite extends TSConfigSuite
     private parentSuite: TSConfigSuite;
 
     /**
+     * Initializes a new instance of the {@link RuleSuite `RuleSuite`} class.
+     *
+     * @param parentSuite
+     * The parent of this suite.
+     *
+     * @param ruleTest
+     * The test to perform.
+     */
+    public constructor(parentSuite: TSConfigSuite, ruleTest: IRuleTest)
+    {
+        super();
+        this.ruleTest = ruleTest;
+        this.parentSuite = parentSuite;
+    }
+
+    /**
      * Gets the test to perform.
      */
     protected get RuleTest(): IRuleTest
