@@ -3,11 +3,12 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import fs from "fs-extra";
 import npmWhich from "npm-which";
+import { ICompilationResult } from "./ICompilationResult.js";
 import { IRuleTest } from "./IRuleTest.js";
 import { TestContext } from "./TestContext.js";
 import { TSConfigSuite } from "./TSConfigSuite.js";
 
-const { writeFile } = fs;
+const { readFile, writeFile } = fs;
 
 /**
  * Provides the functionality to test a tsconfig rule.
@@ -155,7 +156,7 @@ export class RuleSuite extends TSConfigSuite
     {
         for (let codeSnippet of codeSnippets)
         {
-            strictEqual((await this.ProcessCode(context, codeSnippet)) !== 0, error);
+            strictEqual((await this.CompileCode(context, codeSnippet)).status !== 0, error);
         }
     }
 
@@ -171,12 +172,18 @@ export class RuleSuite extends TSConfigSuite
      * @returns
      * The exit-code of the test.
      */
-    protected async ProcessCode(context: TestContext, code: string): Promise<number>
+    protected async CompileCode(context: TestContext, code: string): Promise<ICompilationResult>
     {
-        await writeFile(context.TempDir.MakePath("index.ts"), code);
+        let fileName = "index";
+        await writeFile(context.TempDir.MakePath(`${fileName}.ts`), code);
 
-        return spawnSync(
+        let result = spawnSync(
             npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("tsc"),
-            ["-p", context.TempDir.MakePath()]).status;
+            ["-p", context.TempDir.MakePath()]);
+
+        return {
+            status: result.status,
+            compiledCode: (await readFile(context.TempDir.MakePath(`${fileName}.js`))).toString()
+        };
     }
 }
