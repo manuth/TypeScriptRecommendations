@@ -21,7 +21,7 @@ export abstract class TSConfigSuite
     /**
      * Gets the path to the configuration to test.
      */
-    protected abstract get ConfigPath(): string;
+    public abstract get ConfigPath(): string;
 
     /**
      * Gets the temporary directory of the test.

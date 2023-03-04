@@ -26,7 +26,7 @@ export class ConfigurationTests extends TSConfigSuite
     /**
      * Gets the path to the configuration to test.
      */
-    protected override get ConfigPath(): string
+    public override get ConfigPath(): string
     {
         return this.configPath;
     }
