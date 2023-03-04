@@ -181,9 +181,12 @@ export class RuleSuite extends TSConfigSuite
             npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("tsc"),
             ["-p", context.TempDir.MakePath()]);
 
+        let outFile = context.TempDir.MakePath(`${fileName}.js`);
+
         return {
             status: result.status,
-            compiledCode: (await readFile(context.TempDir.MakePath(`${fileName}.js`))).toString()
+            compiledFile: outFile,
+            compiledCode: (await readFile(outFile)).toString()
         };
     }
 }
