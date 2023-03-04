@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import fs from "fs-extra";
 import npmWhich from "npm-which";
 import { CompilerOptions } from "typescript";
+import { AlwaysStrictSuite } from "./AlwaysStrictSuite.js";
 import { ConfigurationSuite } from "./ConfigurationTests.js";
 import { IRuleTest } from "./IRuleTest.js";
 import { TestContext } from "./TestContext.js";
@@ -58,12 +59,7 @@ export class RecommendedConfigTests extends ConfigurationSuite
                     'import test = require("./tEsT");'
                 ]
             },
-            {
-                RuleName: nameof<CompilerOptions>((options) => options.alwaysStrict),
-                InvalidCode: [
-                    'let interface = "";'
-                ]
-            },
+            new AlwaysStrictSuite(this),
             {
                 RuleName: nameof<CompilerOptions>((options) => options.noImplicitAny),
                 ValidCode: [
