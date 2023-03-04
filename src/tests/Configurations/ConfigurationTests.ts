@@ -1,17 +1,17 @@
 import { strictEqual } from "node:assert";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { TempDirectory } from "@manuth/temp-files";
 import fs from "fs-extra";
 import npmWhich from "npm-which";
 import { IRuleTest } from "./IRuleTest.js";
+import { TSConfigSuite } from "./TSConfigSuite.js";
 
-const { writeFile, writeJSON } = fs;
+const { writeFile } = fs;
 
 /**
  * Provides tests for a typescript-configuration.
  */
-export class ConfigurationTests
+export class ConfigurationTests extends TSConfigSuite
 {
     /**
      * Gets or sets tests for tsconfig-settings.
@@ -19,14 +19,25 @@ export class ConfigurationTests
     public RuleTests: IRuleTest[] = [];
 
     /**
-     * Gets or sets the temporary directory for the tests.
+     * The path to the configuration to test.
      */
-    protected TempDir: TempDirectory = null;
+    private configPath: string;
 
     /**
      * Gets the path to the configuration to test.
      */
-    protected readonly ConfigPath: string;
+    protected override get ConfigPath(): string
+    {
+        return this.configPath;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected get Title(): string
+    {
+        return "Checking the integrity of the config…";
+    }
 
     /**
      * Initializes a new instance of the {@link ConfigurationTests `ConfigurationTests`} class.
@@ -36,28 +47,14 @@ export class ConfigurationTests
      */
     public constructor(configPath: string)
     {
-        this.ConfigPath = configPath;
+        super();
+        this.configPath = configPath;
     }
 
     /**
      * Registers the tests.
      */
-    public Register(): void
-    {
-        suite(
-            "Checking the integrity of the config…",
-            () =>
-            {
-                suiteSetup(async () => this.Initialize());
-                suiteTeardown(() => this.Dispose());
-                this.RegisterInternal();
-            });
-    }
-
-    /**
-     * Registers the tests.
-     */
-    protected RegisterInternal(): void
+    protected override RegisterInternal(): void
     {
         let self = this;
 
@@ -102,28 +99,6 @@ export class ConfigurationTests
                     }
                 });
         }
-    }
-
-    /**
-     * Initializes the tests.
-     */
-    protected async Initialize(): Promise<void>
-    {
-        this.TempDir = new TempDirectory();
-
-        await writeJSON(
-            this.TempDir.MakePath("tsconfig.json"),
-            {
-                extends: this.ConfigPath
-            });
-    }
-
-    /**
-     * Disposes the tests.
-     */
-    protected Dispose(): void
-    {
-        this.TempDir.Dispose();
     }
 
     /**
