@@ -31,7 +31,8 @@
     "clean": "npm run build -- --clean && rimraf ./lib",
     "lint": "eslint --max-warnings 0 ./src .eslintrc.cjs",
     "lint-ide": "npm run lint || exit 0",
-    "test": "mocha"
+    "test": "mocha",
+    "prepack": "npm run build"
   },
   "devDependencies": {
     "@manuth/eslint-plugin-typescript": "^3.3.0",
