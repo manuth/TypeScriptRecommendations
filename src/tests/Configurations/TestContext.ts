@@ -8,7 +8,7 @@ export class TestContext
     /**
      * The temporary directory of the current tests.
      */
-    private tempDir: TempDirectory = null;
+    private tempDir: TempDirectory | null = null;
 
     /**
      * Initializes a new instance of the {@link TestContext `TestContext`} class.

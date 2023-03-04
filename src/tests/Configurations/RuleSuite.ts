@@ -85,25 +85,29 @@ export class RuleSuite extends TSConfigSuite
 
         if (this.RuleTest.ValidCode)
         {
+            let snippets = this.RuleTest.ValidCode;
+
             test(
                 "Testing valid code-snippets…",
                 async function()
                 {
                     this.slow(30 * 1000);
                     this.timeout(60 * 1000);
-                    await self.TestCode(context, self.RuleTest.ValidCode, false);
+                    await self.TestCode(context, snippets, false);
                 });
         }
 
         if (this.RuleTest.InvalidCode)
         {
+            let snippets = this.RuleTest.InvalidCode;
+
             test(
                 "Testing invalid code-snippets…",
                 async function()
                 {
                     this.slow(30 * 1000);
                     this.timeout(60 * 1000);
-                    await self.TestCode(context, self.RuleTest.InvalidCode, true);
+                    await self.TestCode(context, snippets, true);
                 });
         }
     }
@@ -184,7 +188,7 @@ export class RuleSuite extends TSConfigSuite
         let outFile = context.TempDir.MakePath(`${fileName}.js`);
 
         return {
-            status: result.status,
+            status: result.status ?? 1,
             compiledFile: outFile,
             compiledCode: (await readFile(outFile)).toString()
         };
