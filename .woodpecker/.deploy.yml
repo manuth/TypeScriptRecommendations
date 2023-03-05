@@ -47,7 +47,7 @@ pipeline:
       - npm pack
     when:
       event: tag
-      tag: refs/tags/v[0-9]*.[0-9]*.[0-9]*
+      tag: v[0-9]*.[0-9]*.[0-9]*
   prepare release notes:
     image: alpine
     commands:
@@ -60,7 +60,7 @@ pipeline:
       - sed -i "2,\$d ; s$${HeadingPattern}\\\\1/" .releaseTitle.md
     when:
       event: tag
-      tag: refs/tags/v[0-9]*.[0-9]*.[0-9]*
+      tag: v[0-9]*.[0-9]*.[0-9]*
   publish package to npm:
     image: node
     secrets:
@@ -70,7 +70,7 @@ pipeline:
       - npm publish
     when:
       event: tag
-      tag: refs/tags/v[0-9]*.[0-9]*.[0-9]*
+      tag: v[0-9]*.[0-9]*.[0-9]*
   publish package to github:
     image: node
     secrets:
@@ -81,7 +81,7 @@ pipeline:
       - npm publish
     when:
       event: tag
-      tag: refs/tags/v[0-9]*.[0-9]*.[0-9]*
+      tag: v[0-9]*.[0-9]*.[0-9]*
   publish release:
     image: plugins/github-release
     settings:
@@ -93,7 +93,7 @@ pipeline:
       note: releaseNotes.md
     when:
       event: tag
-      tag: refs/tags/v[0-9]*.[0-9]*.[0-9]*
+      tag: v[0-9]*.[0-9]*.[0-9]*
 
 depends_on:
   - check
