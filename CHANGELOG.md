@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## TypeScriptRecommendations [Unreleased]
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v4.0.0...dev)
+
+## TypeScriptRecommendations v4.0.0
 ### Breaking
   - Enable all `strict` checks (including `strictNullChecks`)
 
@@ -18,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Settings to disable dependabot
   - Pipelines settings to migrate from Drone to Woodpecker
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v3.0.2...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v3.0.2...v4.0.0)
 
 ## TypeScriptRecommendations v3.0.2
 ### Updated
