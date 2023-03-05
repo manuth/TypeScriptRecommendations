@@ -1,6 +1,8 @@
 # TypeScriptRecommendations
 Provides recommended settings for TypeScript
 
+[![status-badge](https://ci.nuth.ch/api/badges/manuth/TypeScriptRecommendations/status.svg)](https://ci.nuth.ch/manuth/TypeScriptRecommendations)
+
 ## Usage
 Simply inherit the settings provided by this module by setting the `extends`-options of the `tsconfig.json`-file:
 ```json
