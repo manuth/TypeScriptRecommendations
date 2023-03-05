@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Lifecycle scripts
   - Unit tests
   - Settings to disable dependabot
+  - Pipelines settings to migrate from Drone to Woodpecker
 
 [Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v3.0.2...dev)
 
