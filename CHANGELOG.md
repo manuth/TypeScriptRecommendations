@@ -6,7 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## TypeScriptRecommendations [Unreleased]
 
-[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v3.0.2...dev)
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v4.0.0...dev)
+
+## TypeScriptRecommendations v4.0.0
+### Breaking
+  - Enable all `strict` checks (including `strictNullChecks`)
+
+### Fixed
+  - Vulnerabilities in dependencies
+
+### Updated
+  - All dependencies
+  - Lifecycle scripts
+  - Unit tests
+  - Settings to disable dependabot
+  - Pipelines settings to migrate from Drone to Woodpecker
+
+[Show differences](https://github.com/manuth/TypeScriptRecommendations/compare/v3.0.2...v4.0.0)
 
 ## TypeScriptRecommendations v3.0.2
 ### Updated

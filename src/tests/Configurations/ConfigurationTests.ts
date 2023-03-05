@@ -1,163 +1,69 @@
-import { strictEqual } from "assert";
-import { spawnSync } from "child_process";
-import { fileURLToPath } from "url";
-import { TempDirectory } from "@manuth/temp-files";
-import fs from "fs-extra";
-import npmWhich from "npm-which";
 import { IRuleTest } from "./IRuleTest.js";
-
-const { writeFile, writeJSON } = fs;
+import { RuleSuite } from "./RuleSuite.js";
+import { TestContext } from "./TestContext.js";
+import { TSConfigSuite } from "./TSConfigSuite.js";
 
 /**
  * Provides tests for a typescript-configuration.
  */
-export class ConfigurationTests
+export abstract class ConfigurationSuite extends TSConfigSuite
 {
     /**
-     * Gets or sets tests for tsconfig-settings.
+     * The path to the configuration to test.
      */
-    public RuleTests: IRuleTest[] = [];
+    private configPath: string;
 
     /**
-     * Gets or sets the temporary directory for the tests.
-     */
-    protected TempDir: TempDirectory = null;
-
-    /**
-     * Gets the path to the configuration to test.
-     */
-    protected readonly ConfigPath: string;
-
-    /**
-     * Initializes a new instance of the {@link ConfigurationTests `ConfigurationTests`} class.
+     * Initializes a new instance of the {@link ConfigurationSuite `ConfigurationTests`} class.
      *
      * @param configPath
      * The path to the configuration to test.
      */
     public constructor(configPath: string)
     {
-        this.ConfigPath = configPath;
+        super();
+        this.configPath = configPath;
+    }
+
+    /**
+     * Gets the tests of the tsconfig-settings.
+     */
+    protected abstract get RuleTests(): Array<IRuleTest | TSConfigSuite>;
+
+    /**
+     * @inheritdoc
+     */
+    protected get Title(): string
+    {
+        return "Checking the integrity of the configuration…";
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public override get ConfigPath(): string
+    {
+        return this.configPath;
     }
 
     /**
      * Registers the tests.
+     *
+     * @param context
+     * The context of the underlying tests.
      */
-    public Register(): void
+    protected override RegisterInternal(context: TestContext): void
     {
-        suite(
-            "Checking the integrity of the config…",
-            () =>
-            {
-                suiteSetup(async () => this.Initialize());
-                suiteTeardown(() => this.Dispose());
-                this.RegisterInternal();
-            });
-    }
-
-    /**
-     * Registers the tests.
-     */
-    protected RegisterInternal(): void
-    {
-        let self = this;
-
         for (let ruleTest of this.RuleTests)
         {
-            suite(
-                "Checking the integrity of the `" + ruleTest.RuleName + "`-rule…",
-                () =>
-                {
-                    if (ruleTest.Preprocess)
-                    {
-                        suiteSetup(ruleTest.Preprocess);
-                    }
-
-                    if (ruleTest.ValidCode)
-                    {
-                        test(
-                            "Testing valid code-snippets…",
-                            async function()
-                            {
-                                this.slow(30 * 1000);
-                                this.timeout(60 * 1000);
-                                await self.TestCode(ruleTest.ValidCode, false);
-                            });
-                    }
-
-                    if (ruleTest.InvalidCode)
-                    {
-                        test(
-                            "Testing invalid code-snippets…",
-                            async function()
-                            {
-                                this.slow(30 * 1000);
-                                this.timeout(60 * 1000);
-                                await self.TestCode(ruleTest.InvalidCode, true);
-                            });
-                    }
-
-                    if (ruleTest.Postprocess)
-                    {
-                        suiteTeardown(ruleTest.Postprocess);
-                    }
-                });
-        }
-    }
-
-    /**
-     * Initializes the tests.
-     */
-    protected async Initialize(): Promise<void>
-    {
-        this.TempDir = new TempDirectory();
-
-        await writeJSON(
-            this.TempDir.MakePath("tsconfig.json"),
+            if (ruleTest instanceof TSConfigSuite)
             {
-                extends: this.ConfigPath
-            });
-    }
-
-    /**
-     * Disposes the tests.
-     */
-    protected Dispose(): void
-    {
-        this.TempDir.Dispose();
-    }
-
-    /**
-     * Tests code-snippets for errors.
-     *
-     * @param codeSnippets
-     * The code-snippets to test.
-     *
-     * @param error
-     * A value indicating whether an error is expected.
-     */
-    protected async TestCode(codeSnippets: string[], error: boolean): Promise<void>
-    {
-        for (let codeSnippet of codeSnippets)
-        {
-            strictEqual((await this.ProcessCode(codeSnippet)) !== 0, error);
+                ruleTest.Register();
+            }
+            else
+            {
+                new RuleSuite(this, ruleTest).Register();
+            }
         }
-    }
-
-    /**
-     * Tests the specified {@link code `code`} using `tsc`.
-     *
-     * @param code
-     * The code to test.
-     *
-     * @returns
-     * The exit-code of the test.
-     */
-    protected async ProcessCode(code: string): Promise<number>
-    {
-        await writeFile(this.TempDir.MakePath("index.ts"), code);
-
-        return spawnSync(
-            npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("tsc"),
-            ["-p", this.TempDir.MakePath()]).status;
     }
 }
